@@ -25,7 +25,8 @@ SECRET_KEY = '4@e8=b@p=n$%k#_ci3+jgn-vl%319o#m7mccr^5snr^*%z*ajn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+CSRF_TRUSTED_ORIGINS = ['https://gitstudy-wkxkh.run.goorm.io']
+ALLOWED_HOSTS = ['.run.goorm.io']
 
 # Application definition
 
@@ -103,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 TIME_ZONE = 'Asia/Seoul'
 
