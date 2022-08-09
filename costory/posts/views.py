@@ -1,14 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
+from django.core.paginator import Paginator
 from .models import Post
 from .forms import PostForm
 
 # Create your views here.
-def post_list(requset):
+def post_list(request):
     posts = Post.objects.all()
-    context = {'posts': posts}
-
-    return render(requset, 'posts/post_list.html', context)
+    paginator = Paginator(posts, 6)
+    curr_page_number = request.GET.get('page')
+    if curr_page_number is None:
+        curr_page_number = 1
+    page = paginator.page(curr_page_number)
+    return render(request, 'posts/post_list.html', {'page':page})
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
