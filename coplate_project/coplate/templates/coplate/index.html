@@ -10,6 +10,7 @@
 
 {% if user.is_authenticated %}
     <p>안녕하세요, {{user}}님 닉네임은 {{user.nickname}}입니다.</p>
+    <p><a href="{% url 'account_change_password' %}">비밀번호 변경</a></p>
 {% else %}
     <p>로그인 해주세요!</p>
 {% endif %}
