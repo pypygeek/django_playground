@@ -39,10 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'coplate',
+    'widget_tweaks',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'coplate',
 ]
 
 SITE_ID = 1
@@ -141,8 +142,11 @@ ACCOUNT_SIGNUP_FORM_CLASS = 'coplate.forms.SignupForm'
 ACCOUNT_SSETION_REMEMBER = True
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'account_email_confirmation_done'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = (
+    'account_email_confirmation_done'
+)
 ACCOUNT_ENAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = 'account_email_confirmation_done'
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ''
 PASSWORD_RESET_TIMEOUT = 1
 
 # 쿠키 유요기간 설정 (초)
