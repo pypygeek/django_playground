@@ -28,16 +28,22 @@
     </div>
 
     <div class="content">
-      <img class="thumb" src="#">
-      <p class="content">리뷰 내용</p>
-      <a class="location" target="_blank" href="#">
+      <img class="thumb" src="{{ review.image1.url }}">
+      {% if review.image2 %}
+        <img class="thumb" src="{{ review.image2.url }}">
+      {% endif %}}
+      {% if review.image3 %}
+        <img class="thumb" src="{{ review.image3.url }}">
+      {% endif %}}
+      <p class="content">{{ review.content|linebreaksbr }}</p>
+      <a class="location" target="_blank" href="{{ review.restaurant_link }}">
         <img class="cp-icon" src="{% static 'coplate/icons/ic-pin.svg' %}" alt="Pin Icon">
         <span>위치보기</span>
       </a>
     </div>
 
     <div class="footer">
-      <a class="back-link" href="#">&lt; 목록으로</a>
+      <a class="back-link" href="{% url 'index' %}">&lt; 목록으로</a>
       <div class="buttons">
         <a class="cp-button warn" href="#">삭제</a>
         <a class="cp-button secondary" href="#">수정</a>
