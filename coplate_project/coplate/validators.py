@@ -44,5 +44,5 @@ def validate_no_special_characters(value):
         raise ValidationError("특수문자를 포함할 수 없습니다.")
 
 def validate_restaurant_link(value):
-    if "map.naver.com" not in value and "map.kakao.com" not in value:
-        raise ValidationError("map.naver.com 또는 place.map.kakao.com이 들어가야 합니다.")
+    if "place.map.naver.com" not in value and "place.map.kakao.com" not in value:
+        raise ValidationError("place.map.naver.com 또는 place.map.kakao.com이 들어가야 합니다.")
