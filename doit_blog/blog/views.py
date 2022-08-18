@@ -1,4 +1,4 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 from django.views.generic import ListView
 from .models import Post
 
@@ -6,6 +6,9 @@ from .models import Post
 class PostList(ListView):
     model = Post
     ordering = '-pk'
+
+class PostDetail(DetailView):
+    model = Post
 
 # FBV 방식
 # def index(request):
