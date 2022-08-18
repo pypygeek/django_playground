@@ -16,6 +16,8 @@ class User(AbstractUser):
     profile_pic = models.ImageField(default='default_profile_pic.jpg', upload_to='profile_pics')
 
     intro = models.CharField(max_length=60, blank=True)
+    
+    email_domain = models.CharField(max_length=30, null=True)
 
     def __str__(self):
         return self.email
@@ -48,8 +50,21 @@ class Review(models.Model):
     dt_created = models.DateTimeField(auto_now_add=True)
 
     dt_updated = models.DateTimeField(auto_now=True)
-
+    
+    # on_delete=models.SET_NULL == "리뷰는 남고 유저만 삭제"
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
+    
+class Comment(models.Model):
+    content = models.TextField(max_length=500, blank=False)
+    
+    dt_create = models.DateTimeField(auto_now_add=True)
+    
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.content[:30]
