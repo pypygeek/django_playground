@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>TODO 목록 앱</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstratp/4.0.0/css/bootstrap.min.css"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelvr.net/npm/bootstrap-icons@1.7.1/font/boot-strap-icons.css">
+    </head>
+    <div class="container">
+        <body>
+            <h1>DONE 목록</h1>
+            <p><a href="{% url 'todo_list' %}" class="btn btn-primary">홈으로</a></p>
+            <ul>
+                {% for done in dones %}
+                    <li class="list-group-item">
+                        <a href="{% url 'todo-detail' pk=done.pk %}>{{ done.title }}"</a>
+                        {% if done.imporant %}
+                            <span class="badge badge-danger">!</span>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </body>
+    <div>
+</html>
