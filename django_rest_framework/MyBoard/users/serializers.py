@@ -1,9 +1,13 @@
+from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password               # Django의 기본 패스워드 검증 도구
+from django.contrib.auth import authenticate                                        # Django 기본 authenticate 함수, 우리가 설정한 DefaultAuthBackend인 TokenAuth 방식으로 유저를 인증해줌
 
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token                                   # Token 모델
 from rest_framework.validators import UniqueValidator                               # 이메일 중복 방지를 위한 검증 도구
+
+from .models import Profile
 
 class RegisterSerializer(serializers.ModelSerializer):                              # 회원가입 시리얼라이저
     email = serializers.EmailField(
@@ -37,5 +41,22 @@ class RegisterSerializer(serializers.ModelSerializer):                          
         user.set_password(validated_data['password'])
         user.save()
         token = Token.objects.create(user=user)
-        
         return user
+    
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(required=True, write_only=True)                # wirte_only 옵션을 통해 클라이언트 -> 서버 방향의 역직렬화는 가능, 서버 -> 클라이언트 방향의 직렬화는 불가능
+    
+    def validate(self, data):
+        user = authenticate(**data)
+        if user:
+            token = Token.objects.get(user=user)                                    # 토큰에서 유저 찾아 응답
+            return token
+        raise serializers.ValidationError(
+            {"error":"Unable to log in with provided credentials."}
+        )
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        models = Profile
+        fields = ('nickname', 'position', 'subjects', 'image')
